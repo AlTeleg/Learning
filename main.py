@@ -29,7 +29,7 @@ class Student:
                 try:
                     grade = int(input(f'Введите оценку от 1 до 10 для курса <{course}> для лектора '
                                       f'"{lecturer.surname} {lecturer.name}":\n'))
-                except ValueError as ve:
+                except ValueError:
                     print("Введено некорректное значение оценки!")
                     continue
             if course in lecturer.grades:
@@ -101,7 +101,6 @@ def mid_grade_lc(lecturer_list,course):
     except ZeroDivisionError:
         return float(0)
 
-
 new_student1 = Student('Ruoy', 'Eman', 'male')
 new_student1.courses_in_progress += ['Python']
 new_student1.courses_in_progress += ['Git']
@@ -121,7 +120,6 @@ new_lector2 = Lecturer('Any', 'Buddy')
 new_lector2.courses_attached += ['SQL']
 new_lector2.courses_attached += ['Введение в программирование']
 
-
 new_reviewer1 = Reviewer("Bob", "Bro")
 new_reviewer1.courses_attached += ['Python']
 new_reviewer1.courses_attached += ['Git']
@@ -129,7 +127,6 @@ new_reviewer1.courses_attached += ['Git']
 new_reviewer2 = Reviewer("Jane", "Sister")
 new_reviewer2.courses_attached += ['SQL']
 new_reviewer2.courses_attached += ['Введение в программирование']
-
 
 new_reviewer1.rate_stud(new_student1, "Python", 8)
 new_reviewer1.rate_stud(new_student1, "Git", 7)
@@ -149,7 +146,6 @@ new_student2.rate_lect(new_lector2, "Введение в программиро�
 students = [new_student1, new_student2]
 lectors = [new_lector1, new_lector2]
 reviewers = [new_reviewer1, new_reviewer2]
-
 
 print(f'{new_reviewer1}\n')
 print(f'{new_reviewer2}\n')
