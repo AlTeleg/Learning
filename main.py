@@ -6,6 +6,7 @@ def count_mid_grade(self):
         self.mid_grade = float(0)
     return self.mid_grade
 
+
 class Student:
     def __init__(self, name, surname, gender):
         self.name = name
@@ -15,14 +16,16 @@ class Student:
         self.courses_in_progress = []
         self.grades = {}
         self.mid_grade = 0
+
     def __str__(self):
         text = f'Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за домашние задания:' \
                f' {("{:.1f}".format(count_mid_grade(self)))}\nКурсы в процессе изучения: ' \
                f'{", ".join(map(str,self.courses_in_progress))}\n'\
                f'Завершенные курсы: {", ".join(map(str,self.finished_courses))}'
         return text
-    def rate_lect(self,lecturer,course):
-        if isinstance(lecturer,Lecturer) and course in lecturer.courses_attached \
+
+    def rate_lect(self, lecturer, course):
+        if isinstance(lecturer, Lecturer) and course in lecturer.courses_attached \
                 and (course in self.courses_in_progress or course in self.finished_courses):
             grade = 0
             while not 1 <= grade <= 10:
@@ -38,33 +41,40 @@ class Student:
                     lecturer.grades[course] = [grade]
         else:
             return 'Ошибка'
+
     def __lt__(self, other):
         if not isinstance(other, Student):
             return
         return count_mid_grade(self) < count_mid_grade(other)
+
 
 class Mentor:
     def __init__(self, name, surname):
         self.name = name
         self.surname = surname
         self.courses_attached = []
+
     def __str__(self):
         text = f'Имя: {self.name}\nФамилия: {self.surname}'
         return text
 
+
 class Lecturer(Mentor):
     def __init__(self, name, surname):
-        Mentor.__init__(self,name,surname)
+        Mentor.__init__(self, name, surname)
         self.grades = {}
         self.mid_grade = 0
+
     def __str__(self):
         text = f'Имя: {self.name}\nФамилия: {self.surname}\n' \
                f'Средняя оценка за лекции: {("{:.1f}".format(count_mid_grade(self)))}'
         return text
+
     def __lt__(self,other):
-        if not isinstance(other,Lecturer):
+        if not isinstance(other, Lecturer):
             return
-        return count_mid_grade(self)<count_mid_grade(other)
+        return count_mid_grade(self) < count_mid_grade(other)
+
 
 class Reviewer(Mentor):
     def rate_stud(self, student, course, grade):
@@ -76,6 +86,7 @@ class Reviewer(Mentor):
                 student.grades[course] = [grade]
         else:
             return 'Ошибка'
+
 
 def mid_grade_st(student_list,course):
     all_mid_grade = []
@@ -89,6 +100,7 @@ def mid_grade_st(student_list,course):
     except ZeroDivisionError:
         return float(0)
 
+
 def mid_grade_lc(lecturer_list,course):
     all_mid_grade = []
     i = 0
@@ -100,6 +112,7 @@ def mid_grade_lc(lecturer_list,course):
         return sum(all_mid_grade)/i
     except ZeroDivisionError:
         return float(0)
+
 
 new_student1 = Student('Ruoy', 'Eman', 'male')
 new_student1.courses_in_progress += ['Python']
